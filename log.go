@@ -93,9 +93,9 @@ type LogTemplate struct {
 
 // LOG_FORMAT_* is example format string(with text/template)
 const (
-	LOG_FORMAT_SIMPLE   = "{{.Time}} : {{.Message}} \n"
-	LOG_FORMAT_STANDARD = "{{.Time}} {{.ShortFileName}}:({{.LineNumber}}) : {{.Message}}\n"
-	LOG_FORMAT_POWERFUL = "{{.Time}} {{.ShortFileName}}:{{.LineNumber}}({{.ShortFuncName}}) : {{.Message}}\n"
+	LOG_FORMAT_SIMPLE   = "{{.Time}}: {{.Message}} \n"
+	LOG_FORMAT_STANDARD = "{{.Time}} {{.ShortFileName}}:({{.LineNumber}}): {{.Message}}\n"
+	LOG_FORMAT_POWERFUL = "{{.Time}} {{.ShortFileName}}:{{.LineNumber}}({{.ShortFuncName}}): {{.Message}}\n"
 )
 
 // TIME_FORMAT_* is example format string(with time)
@@ -188,10 +188,10 @@ func (l *logger) print(a ...interface{}) {
 
 	for _, v := range a {
 		switch v := v.(type) {
-			default :
-				s += fmt.Sprintf("%#v ", v)
-			case error:
-				s += fmt.Sprintf("%s ", v.Error())
+		default:
+			s += fmt.Sprintf("%v ", v)
+		case error:
+			s += fmt.Sprintf("%s ", v.Error())
 		}
 	}
 
